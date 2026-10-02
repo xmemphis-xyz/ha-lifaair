@@ -9,7 +9,6 @@ import broadlink
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST
-from homeassistant.core import callback
 
 from .const import DEVTYPE_LIFAAIR, DOMAIN
 
@@ -66,9 +65,3 @@ class LifaAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             ),
             errors=errors,
         )
-
-    @staticmethod
-    @callback
-    def async_get_options_flow(config_entry):
-        """Return no options flow."""
-        return None
