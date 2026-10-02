@@ -1,0 +1,17 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add LIFAair",
+        "description": "Enter the IP address of your LIFAair purifier.",
+        "data": {
+          "host": "IP address"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the LIFAair device.",
+      "not_lifaair": "The device at this address is not a LIFAair purifier."
+    }
+  }
+}
