@@ -1,0 +1,17 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dodaj LIFAair",
+        "description": "Podaj adres IP oczyszczacza LIFAair.",
+        "data": {
+          "host": "Adres IP"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Nie można połączyć się z urządzeniem LIFAair.",
+      "not_lifaair": "Urządzenie pod tym adresem nie jest oczyszczaczem LIFAair."
+    }
+  }
+}
