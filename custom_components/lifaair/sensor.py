@@ -2,12 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Callable
-
-from homeassistant.components.sensor import SensorDeviceClass, SensorEntity, SensorStateClass
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorEntityDescription,
+    SensorStateClass,
+)
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import PERCENTAGE, UnitOfTemperature, CONCENTRATION_PARTS_PER_MILLION, CONCENTRATION_MICROGRAMS_PER_CUBIC_METER
+from homeassistant.const import (
+    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+    CONCENTRATION_PARTS_PER_MILLION,
+    PERCENTAGE,
+    UnitOfTemperature,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -25,64 +32,53 @@ from .const import (
 from .coordinator import LifaAirCoordinator
 
 
-@dataclass(frozen=True)
-class SensorDescription:
-    key: str
-    name: str
-    device_class: SensorDeviceClass | None
-    unit: str
-    state_class: SensorStateClass | None
-
-
 SENSORS = (
-    SensorDescription(
-        ATTR_TEMPERATURE,
-        "Temperature",
-        SensorDeviceClass.TEMPERATURE,
-        UnitOfTemperature.CELSIUS,
-        SensorStateClass.MEASUREMENT,
+    SensorEntityDescription(
+        key=ATTR_TEMPERATURE,
+        name="Temperature",
+        device_class=SensorDeviceClass.TEMPERATURE,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
-    SensorDescription(
-        ATTR_HUMIDITY,
-        "Humidity",
-        SensorDeviceClass.HUMIDITY,
-        PERCENTAGE,
-        SensorStateClass.MEASUREMENT,
+    SensorEntityDescription(
+        key=ATTR_HUMIDITY,
+        name="Humidity",
+        device_class=SensorDeviceClass.HUMIDITY,
+        native_unit_of_measurement=PERCENTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
-    SensorDescription(
-        ATTR_CO2,
-        "CO2",
-        SensorDeviceClass.CO2,
-        CONCENTRATION_PARTS_PER_MILLION,
-        SensorStateClass.MEASUREMENT,
+    SensorEntityDescription(
+        key=ATTR_CO2,
+        name="CO2",
+        device_class=SensorDeviceClass.CO2,
+        native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
-    SensorDescription(
-        ATTR_TVOC,
-        "TVOC",
-        None,
-        "µg/m³",
-        SensorStateClass.MEASUREMENT,
+    SensorEntityDescription(
+        key=ATTR_TVOC,
+        name="TVOC",
+        native_unit_of_measurement="µg/m³",
+        state_class=SensorStateClass.MEASUREMENT,
     ),
-    SensorDescription(
-        ATTR_PM1,
-        "PM1",
-        None,
-        "µg/m³",
-        SensorStateClass.MEASUREMENT,
+    SensorEntityDescription(
+        key=ATTR_PM1,
+        name="PM1",
+        native_unit_of_measurement="µg/m³",
+        state_class=SensorStateClass.MEASUREMENT,
     ),
-    SensorDescription(
-        ATTR_PM25,
-        "PM2.5",
-        SensorDeviceClass.PM25,
-        CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-        SensorStateClass.MEASUREMENT,
+    SensorEntityDescription(
+        key=ATTR_PM25,
+        name="PM2.5",
+        device_class=SensorDeviceClass.PM25,
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
-    SensorDescription(
-        ATTR_PM10,
-        "PM10",
-        SensorDeviceClass.PM10,
-        CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-        SensorStateClass.MEASUREMENT,
+    SensorEntityDescription(
+        key=ATTR_PM10,
+        name="PM10",
+        device_class=SensorDeviceClass.PM10,
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 )
 
@@ -108,7 +104,7 @@ class LifaAirSensor(CoordinatorEntity[LifaAirCoordinator], SensorEntity):
         self,
         coordinator: LifaAirCoordinator,
         entry: ConfigEntry,
-        description: SensorDescription,
+        description: SensorEntityDescription,
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
